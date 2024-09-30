@@ -1,5 +1,5 @@
 {
-  "name": "ais-activemq-app-1",
+  "name": "ais-activemq-app-producer",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
