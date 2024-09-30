@@ -1,5 +1,6 @@
 import express from "express";
 import { v4 as uuidv4 } from "uuid";
+import { send } from "../services/amqp.js"
 
 const router = express.Router();
 
@@ -11,7 +12,11 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const user = req.body;
-    users.push({ ...user, id: uuidv4() });
+    const userId = uuidv4();
+    users.push({ ...user, id: userId });
+    const currentDate = new Date();
+    const dateString = currentDate.toString();
+    send(`New user with id ${userId} added at ${dateString} with "${user.firstName}" as first name, "${user.lastName}" as last name and with ${user.age} as age`);
     res.send(`User with the name ${user.firstName} added to the database`);
 });
 
